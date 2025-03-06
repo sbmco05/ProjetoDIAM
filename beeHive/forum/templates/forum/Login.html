@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/style.css' %}"/>
+    <title>Login</title>
+</head>
+<body STYLE="background-color: rgb(245,196,64);">
+
+    <img src="{% static "forum/images/login.png" %}" id="icone">
+
+    {% block form %}
+    <fieldset id="logo_field">
+        <legend><strong>Login</strong></legend>
+        <form method="POST" action="{% url 'forum:dologin' %}">
+
+            {% if msg_erro %}
+                <p>{{ msg_erro }}</p>
+            {% endif %}
+
+            {% csrf_token %}
+
+                <input type="text" id="username" name="username" placeholder="Username" autofocus><br><br>
+
+                <input type="password" id="password" name="password" placeholder="Password"><br><br>
+
+                <input type="submit" value="Login" id = "botao">
+        </form>
+        {% endblock %}
+        <br>
+
+        {% block registar %}
+
+            <p>Ainda não tem conta?<a href="{% url 'forum:registo' %}">Registe-se</a></p>
+
+        {% endblock %}
+
+    </fieldset>
+
+</body>
+</html>

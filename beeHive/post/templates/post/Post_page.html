@@ -1,0 +1,100 @@
+{% extends "topic/hpage.html" %}
+
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/style.css' %}"/>
+
+    {% if image.url %}
+        <img src="{{ image.url }}" id="post_image">
+    {% endif %}
+
+    <fieldset id="id_post">
+        <legend> De: {{ post.autor.username }}</legend>
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+            <img src="{{ post.image.url }}">
+        {% endif %}
+        <fieldset id="leg_post">
+
+            {% if likes %}
+                <a href="{% url 'post:dislike_post' topic.id post.id %}"><img src="{% static "forum/images/like_preenchido.png" %}" onclick="insereFoto(this)" id="interacao_dislike" style="cursor: pointer;"></a>
+            {% else %}
+                <a href="{% url 'post:like_post' topic.id post.id%}"><img src="{% static "forum/images/like.png" %}" onclick="removeFoto(this)" id="interacao_like" style="cursor: pointer" "></a>
+            {% endif %}
+
+            <h6 id="num_likes">{{ post.likes }} likes</h6>
+            <img src="{% static "forum/images/escrever_comentario.png" %}" id="interacao_escrita">
+            <a href="#comments"> <img src="{% static "forum/images/ver_comentarios.png" %}" id="interacao_ver"></a>
+            {% if post.autor.username == user.username  %}
+                <a href="{% url 'post:alterar_post' topic.id post.id %}"><img src="{% static "forum/images/definicoes.png" %}" id="interacao_ver"></a>
+            {% endif %}
+            {% if post.autor.username == user.username  or topic.admin.username == user.username %}
+                <a href="{% url 'post:delete_post' topic.id post.id %}" onclick="return confirmDelete();">
+                    <img src="{% static 'forum/images/lixo.png' %}" id="interacao_ver"></a>
+            {% endif %}
+        </fieldset>
+    </fieldset>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        function confirmDelete() {
+            return confirm('Tem certeza que deseja excluir este post?');
+        }
+
+        function removeFoto(img) {
+            img.style.display = 'none';
+            var newImg = document.createElement('img');
+            newImg.src = "{% static "forum/images/like_preenchido.png" %}";
+            newImg.style.cursor='pointer';
+            newImg.ondblclick=function (){
+                insereFoto(newImg);
+            }
+            newImg.id = 'interacao_like';
+            img.parentNode.insertBefore(newImg, img.nextSibling);
+        }
+
+        function insereFoto(img) {
+            var newImg = document.createElement('img');
+            newImg.src = "{% static "forum/images/like.png" %}";
+            img.style.display = 'none';
+            newImg.style.cursor='pointer';
+            newImg.ondblclick=function (){
+                removeFoto(newImg);
+            }
+            newImg.id = 'interacao_like';
+            img.parentNode.insertBefore(newImg, img.nextSibling);
+        }
+
+        $(document).ready(function(){
+            $("#interacao_escrita").click(function (){
+                $("#escrever_comentario").show('slow');
+            });
+        });
+    </script>
+
+    <div id="comments">
+        <fieldset id="escrever_comentario" style="display: none">
+            <form method="POST" action="{% url 'post:new_comment' topic.id post.id %}">
+                {% csrf_token %}
+                <input type="text" id="content" name="content" placeholder="Escreva o seu comentário" autofocus><br><br>
+                <br>
+                <input type="submit" value="Publicar" id = "botao_comentario">
+            </form>
+        </fieldset>
+
+        {% for comment in comments %}
+            <fieldset id="comment">
+                <legend> De: {{ comment.autor.username }}</legend>
+                {{ comment.content }}
+            </fieldset>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

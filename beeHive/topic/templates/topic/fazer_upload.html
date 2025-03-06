@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/style.css' %}"/>
+    <title>
+        {% block title %} Upload {% endblock %}
+    </title>
+</head>
+
+<header>
+    <img src="{% static "forum/images/logo_branco.png" %}"  id="logo">
+    <img src="{% static "forum/images/user.png" %}"  style="cursor:pointer;" id="user" >
+</header>
+
+<body>
+
+<main class="container">
+    <section style="margin-top: 20px">
+        <form method="post" enctype="multipart/form-data" action="{% url 'topic:fazer_upload' topic.id %}">
+            {% csrf_token %}
+            <input type="file" name="myfile">
+            <input type="submit" value="Upload">
+        </form>
+
+        {% if uploaded_file_url %}
+            <p>Feito o upload para:
+                <a href="{{ uploaded_file_url }}">
+                    {{ uploaded_file_url }}
+                </a>
+            </p>
+        {% endif %}
+        <p><a href="{% url 'topic:hpage' topic.id %}">Voltar atrás</a></p>
+    </section>
+</main>
+
+</body>
+
+<footer>
+
+    &copy; 2023 DIAM - ISCTE
+    <br>Todos os direitos reservados.
+
+</footer>
+</html>

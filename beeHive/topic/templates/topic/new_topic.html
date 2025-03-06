@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/style.css' %}"/>
+    <title>
+        {% block title %}Novo tópico{% endblock %}
+    </title>
+</head>
+
+<header>
+    <img src="{% static "forum/images/logo_branco.png" %}"  id="logo">
+    <img src="{% static "forum/images/user.png" %}"  style="cursor:pointer;" id="user" >
+</header>
+
+<body>
+<fieldset id = "new_post">
+    <legend style="font-size : 200%"><strong>Criar novo tópico de discussão</strong></legend>
+    <form method="POST" action="{% url 'topic:new_topic'%}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if msg_erro %}
+            <p>{{ msg_erro }}</p>
+        {% endif %}
+
+        <input type="text" id="title" name="title" placeholder="Titulo" autofocus><br><br>
+
+        <input type="text" id="description" name="description" placeholder="Descrição" autofocus><br><br>
+
+        <input type="submit" value="Criar tópico" id="botao_post">
+
+    </form>
+</fieldset>
+</body>
+
+<footer>
+    &copy; 2023 DIAM - ISCTE
+    <br>Todos os direitos reservados.
+</footer>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/style.css' %}"/>
+    <title>
+        {% block title %}{{ topic.title }}{% endblock %}
+    </title>
+</head>
+
+<header id="topic_header">
+    <a href="{% url 'forum:index' %}">
+        <img src="{% static "forum/images/logo_branco.png" %}"  id="logo">
+    </a>
+    <div class="user_container">
+        <span id="user_text">
+             {% if user.is_authenticated %}
+                 <a href="{% url 'forum:perfil' %}" id="login">{{ user.username }}</a>
+             {% else %}
+                 <a href="{% url 'forum:dologin' %}" id="login">Login/Registo</a>
+             {% endif %}
+        </span>
+        <img src="{% static "forum/images/user.png" %}"  style="cursor:pointer;" id="user" >
+    </div>
+
+    {% block header %}
+        {% if topic.banner %}
+            <div id="topic_banner" style="background-image: url('{{ topic.banner.url }}');">
+                <a href="{% url 'topic:hpage' topic.id %}" >
+                    <h1 id="topic_title">
+                        {{ topic.title }}
+                    </h1>
+                </a>
+            </div>
+        {% else %}
+            <div id="topic_banner" style="background-image: url('{% static "forum/images/banner.jpg" %}')">
+                <a href="{% url 'topic:hpage' topic.id %}" >
+                    <h1>
+                        {{ topic.title }}
+                    </h1>
+                </a>
+            </div>
+        {% endif %}
+
+        <nav>
+            {% if topic.admin.username == user.username or user.is_superuser %}
+                <div class="container">
+                    <ul>
+                        <li><a href="{% url 'topic:alterar_topic' topic.id %}">Alterar tópico</a></li>
+                        <li><a href="{% url 'topic:fazer_upload' topic.id %}">Alterar banner</a></li>
+                        <li><a href="{% url 'topic:delete_topic' topic.id %}" onclick="return confirmDelete();">Apagar tópico</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+        </nav>
+    {% endblock %}
+</header>
+
+<body>
+{% block content %}
+    <fieldset id="description">
+        <legend><strong>Descrição:</strong></legend>
+        {{ topic.description }}
+    </fieldset>
+
+    <form action="{% url 'post:new_post' topic.id %}">
+        {% csrf_token %}
+        <button id="new_post_button" type="submit">Adicionar post</button>
+    </form>
+
+    <section style="margin-top: 20px">
+        {% for post in posts %}
+            <fieldset id="id_post">
+                <legend>De: {{ post.autor.username }}, {{ post.created_at }}</legend>
+                <h1>{{ post.title }}</h1>
+                <p>{{ post.content }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}">
+                {% endif %}
+                <fieldset id="leg_post">
+                    <a href="{% url 'post:like_post' topic.id post.id%}"><img src="{% static "forum/images/like.png" %}" id="interacao_like"></a>
+                    <h6 id="num_likes">{{ post.likes }} likes</h6>
+                    <img src="{% static "forum/images/escrever_comentario.png" %}" id="interacao_escrita" style="cursor: pointer">
+                    <a href="{% url 'post:post_page' topic.id post.id %}"> <img src="{% static "forum/images/ver_comentarios.png" %}" id="interacao_ver"></a>
+                    {% if post.autor.username == user.username  %}
+                        <a href="{% url 'post:alterar_post' topic.id post.id %}"><img src="{% static "forum/images/definicoes.png" %}" id="interacao_ver"></a>
+                    {% endif %}
+                    {% if post.autor.username == user.username  or topic.admin.username == user.username or user.is_superuser %}
+                        <a href="{% url 'post:delete_post' topic.id post.id %}" onclick="return confirmDelete();">
+                            <img src="{% static 'forum/images/lixo.png' %}" id="interacao_ver">
+                        </a>
+                    {% endif %}
+                </fieldset>
+            </fieldset>
+
+            <fieldset id="escrever_comentario" style="display: none">
+                <form method="POST" action="{% url 'post:new_comment' topic.id post.id %}">
+                    {% csrf_token %}
+                    <input type="text" id="content" name="content" placeholder="Escreva o seu comentário" autofocus><br><br>
+                    <br>
+                    <input type="submit" value="Publicar" id = "botao_comentario">
+                </form>
+            </fieldset>
+        {% endfor %}
+    </section>
+{% endblock %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    function confirmDelete() {
+        return confirm('Tem certeza que deseja excluir este post?');
+    }
+
+    $(document).ready(function(){
+        $("#interacao_escrita").click(function (){
+            $("#escrever_comentario").show('slow');
+        });
+    });
+</script>
+</body>
+
+<footer>
+    &copy; 2023 DIAM - ISCTE
+    <br>Todos os direitos reservados.
+</footer>
+</html>

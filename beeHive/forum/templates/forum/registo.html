@@ -1,0 +1,39 @@
+{% extends "forum/Login.html" %}
+
+
+{% block title %}
+    Registo
+{% endblock %}
+
+{% block form %}
+
+<fieldset id="logo_field">
+    <legend><strong>Registo</strong></legend>
+    <form method="POST" action="{% url 'forum:registo' %}">
+
+        {% csrf_token %}
+
+        {% if msg_erro %}
+            <p>{{ msg_erro }}</p>
+        {% endif %}
+
+        <input type="text" id="username" name="username" placeholder="Username" autofocus><br><br>
+
+        <input type="email" id="email" name="email" placeholder="Email" autofocus><br><br>
+
+        <input type="password" id="password" name="password" placeholder="Password"><br><br>
+
+        <input type="date" id="date" name="date" placeholder="Data Nascimento" autofocus><br><br>
+
+        <input type="submit" value="Registar" id = "botao">
+    </form>
+    <form action="{% url 'forum:dologin' %}">
+        <input type="submit" value="Login" id = "botao">
+    </form>
+</fieldset>
+
+{% endblock %}
+
+{% block registar %}
+
+{% endblock %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forum/style.css' %}"/>
+    <title>
+        {% block title %} Esta é a página Base {% endblock %}
+    </title>
+</head>
+
+<header>
+    <a href="{% url 'forum:index' %}">
+        <img src="{% static "forum/images/logo_branco.png" %}"  id="logo">
+    </a>
+    <div class="user_container">
+        <span id="user_text">
+             {% if user.is_authenticated %}
+                 <a href="{% url 'forum:perfil' %}" id="login">{{ user.username }}</a>
+             {% else %}
+                 <a href="{% url 'forum:dologin' %}" id="login">Login/Registo</a>
+             {% endif %}
+        </span>
+        <img src="{% static "forum/images/user.png" %}"  style="cursor:pointer;" id="user" >
+    </div>
+</header>
+
+<body>
+
+<main class="container">
+    <section style="margin-top: 20px">
+        {% block content %}
+            Colocar aqui conteudo
+        {% endblock %}
+    </section>
+</main>
+
+<aside>
+    {% block aside %}
+        Tópicos de discussão abertos:
+        {% for topico in topicos %}
+            <li>
+                <a href="{% url 'topic:hpage' topico.id %}">{{ topico.title }}</a>
+            </li>
+        {% endfor %}
+        <br>
+    {% endblock %}
+</aside>
+
+</body>
+
+<footer>
+
+    &copy; 2023 DIAM - ISCTE
+    <br>Todos os direitos reservados.
+
+</footer>
+</html>

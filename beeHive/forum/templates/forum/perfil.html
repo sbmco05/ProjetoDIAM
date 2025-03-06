@@ -1,0 +1,32 @@
+{% extends "forum/base.html" %}
+
+{% block title %}
+    Perfil
+{% endblock %}
+
+{% block content %}
+    <form action="{% url 'forum:fazlogout' %}" method="POST" >
+        {% csrf_token %}
+        <button type="submit" id="logout">Terminar sessão</button>
+    </form>
+
+    <h1>Perfil de {{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+
+    <h2>Seus posts:</h2>
+    {% for post in posts %}
+        <fieldset id="post_index">
+            <legend>Tópico: {{ post.topic.title }}, {{ post.created_at }}</legend>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.content }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}">
+            {% endif %}
+        </fieldset>
+    {% empty %}
+        <p>Você ainda não criou nenhum post.</p>
+    {% endfor %}
+
+
+
+{% endblock %}

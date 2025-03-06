@@ -1,0 +1,41 @@
+{% extends "forum/base.html" %}
+
+{% block title %}
+    BeeHive
+{% endblock %}
+
+{% block content %}
+
+    {% load static %}
+
+    <form action="{% url 'topic:new_topic' %}">
+        <button id="new_topic_button" type="submit">Adicionar tópico de discussão</button>
+    </form>
+
+    {% for post in latest_posts %}
+        <fieldset id="post_index">
+            <legend>De: {{ post.autor.username }}, {{ post.created_at }} no tópico: {{ post.topic.title }}</legend>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.content }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}">
+            {% endif %}
+            <fieldset id="leg_post">
+                <a href="{% url 'post:like_post' post.topic.id post.id%}"><img src="{% static "forum/images/like.png" %}" id="interacao_like" style="cursor: pointer"></a>
+                <h6 id="num_likes">{{ post.likes }} likes</h6>
+            </fieldset>
+        </fieldset>
+    {% endfor %}
+
+
+{% endblock %}
+
+{% block aside %}
+    Tópicos de discussão abertos:
+    {% for topico in topicos %}
+        <p>
+            <a href="{% url 'topic:hpage' topico.id %}">{{ topico.title }}</a>
+        </p>
+    {% endfor %}
+    <br>
+{% endblock %}

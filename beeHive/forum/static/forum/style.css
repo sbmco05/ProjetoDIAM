@@ -1,0 +1,293 @@
+header{
+    background-color: rgb(245,196,64);
+    font-family: arial;
+}
+
+
+body{
+    margin: 0px;
+    font-family: arial;
+}
+
+#logo{
+    padding-left: 8%;
+    height: 75px;
+    display: inline;
+}
+
+#user{
+    padding: 12px;
+    float:right;
+    height: 35px;
+    margin-right: 8%;
+}
+
+aside{
+    font-family: arial;
+    background-color: rgb(135, 87, 71);
+    float: right;
+    width: 15%;
+    padding: 1%;
+    margin-top: 50px;
+    margin-right: 8%;
+    margin-bottom: 8%;
+    color: blanchedalmond;
+    display: inline-block;
+    border-radius: 30px;
+}
+
+footer{
+    background-color: rgb(245,196,64);
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-left: 8%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+}
+
+.container{
+    margin-left: 8%;
+    padding-top: 1%;
+}
+
+#icone{
+    width: 30%;
+    height: 50%;
+    margin-top: 10%;
+    margin-left: 10%;
+    display: inline-block;
+}
+
+#logo_field{
+    display: inline-block;
+    padding: 30px;
+    float: right;
+    width: 30%;
+    height: 50%;
+    font-size: 200%;
+    margin-top: 10%;
+    margin-right: 10%;
+    text-align: center;
+    border-radius: 15px;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=date] {
+    border-radius: 25px;
+    padding: 15px;
+    margin: 8px 0;
+    font-size: 90%;
+    border-width: 3px;
+}
+
+#botao{
+    font-size: 70%;
+    border-radius: 25px;
+    padding: 10px;
+    border-width: 3px;
+    border-color: black;
+}
+
+#new_post{
+    padding: 30px;
+    width: 80%;
+    height: 50%;
+    font-size: 100%;
+    margin-top: 5%;
+    margin-left: 8%;
+    text-align: center;
+    border-radius: 15px;
+    background-color: rgb(245,196,64);
+    border-color: rgb(135, 87, 71);
+    border-width: medium;
+}
+
+#title, #content, #description{
+    width: 90%;
+}
+
+#botao_post{
+    width: 25%;
+    font-size: 150%;
+    border-radius: 25px;
+    padding: 5px;
+    border-width: 3px;
+    border-color: black;
+    margin-top: 5%;
+}
+
+#file{
+    font-family: Arial;
+    font-size: 100%;
+    border-radius: 25px;
+    padding: 10px;
+    border-width: 3px;
+    border-color: black;
+}
+
+#id_post{
+    font-size: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    padding: 1%;
+    border-radius: 25px;
+    text-align: center;
+    background-color: rgb(247, 239, 205);
+}
+
+#post_field{
+    width: 60%;
+    display: inline-block;
+    float: left
+}
+
+#postpage_field{
+    width: 80%;
+    margin: 5%;
+}
+
+#topic_banner{
+    margin: 0px;
+    height: 60%;
+    background-size: cover;
+    color: rgb(135, 87, 71);
+    padding: 30px 40px;
+    text-align: center;
+}
+
+nav li {
+    display: inline;
+    padding: 2%;
+    margin: 1%;
+    font-size: 100%;
+}
+
+li{
+    color:white;
+}
+
+#leg_post{
+    padding: 1%;
+    border-radius: 25px;
+    background-color: white;
+}
+
+#new_post_button{
+    width: 80%;
+    font-size: 120%;
+    margin-left: 10%;
+    background-color: rgb(245,196,64);
+    border-color: rgb(135, 87, 71);
+    border-width: medium;
+    color: white;
+    padding: 1%;
+    border-radius: 25px;
+}
+
+#new_topic_button{
+    width: 60%;
+    font-size: 120%;
+    background-color: rgb(245,196,64);
+    border-color: rgb(135, 87, 71);
+    border-width: medium;
+    color: white;
+    padding: 1%;
+    border-radius: 25px;
+}
+
+#description{
+    width: 78%;
+    font-size: 100%;
+    margin-left: 10%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    padding: 1%;
+    border-radius: 25px;
+}
+
+#interacao_escrita, #interacao_ver{
+    display: inline;
+    height:40px;
+    margin-left: 8%;
+    margin-right: 8%;
+}
+
+#interacao_like, #interacao_dislike{
+    display: inline;
+    height:40px;
+    margin-left: 8%;
+    margin-right: 0%;
+}
+#num_likes{
+    display: inline;
+    margin-left: 0;
+    font-family: Arial;
+    font-size: 100%;
+}
+
+#comment{
+    width: 78%;
+    font-size: 100%;
+    padding: 1%;
+    border-radius: 25px;
+    margin-left:10%;
+    margin-top: 10px;
+}
+
+#escrever_comentario{
+    padding: 1%;
+    border-radius: 25px;
+    width: 78%;
+    margin-left:10%;
+    margin-top: 1%;
+}
+
+#botao_comentario{
+    border-radius: 25px;
+    padding:10px;
+    font-size: 100%;
+    float:right
+}
+
+.user_container{
+    display: flex;
+    margin-right: 8%;
+    margin-top: 0.8%;
+    float: right;
+}
+#user{
+    padding: 10px;
+    float:right;
+    height: 30px;
+}
+#login{
+    font-family: sans-serif;
+    color: white;
+    line-height: 50px;
+}
+
+#post_index{
+    width: 57%;
+    padding: 1%;
+    border-radius: 25px;
+    font-size: 100%;
+    text-align: center;
+    margin-top: 1.4%;
+    margin-bottom: 3%;
+    background-color: rgb(247, 239, 205);
+    display: inline-block;
+    float: left;
+}
+
+#topic_title{
+    margin: 8%;
+}
+
+#logout{
+    width: 30%;
+    padding: 1%;
+    border-radius: 25px;
+}
